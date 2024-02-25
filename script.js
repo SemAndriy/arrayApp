@@ -75,7 +75,7 @@ const displayMovements = function (movements, sort = false) {
         <div class="movements__type movements__type--${movType}">${
       i + 1
     } ${movType}</div>
-        <div class="movements__value">${mov}</div>
+        <div class="movements__value">${mov}€</div>
       </div>
     `;
     containerMovements.insertAdjacentHTML('afterbegin', html);
@@ -485,10 +485,10 @@ console.log(balance2);
 
 // String
 const owners = ['Jonas', 'Zack', 'Adam', 'Martha'];
-console.log(owners.sort());
+// console.log(owners.sort());
 
 // Numbers
-console.log(movements);
+// console.log(movements);
 
 // return < 0 = A, B (keep order)
 // return > 0 = B, A (switch order)
@@ -500,6 +500,28 @@ console.log(movements);
 //   }
 // });
 
-movements.sort((a, b) => a - b);
+// movements.sort((a, b) => a - b);
 
-console.log(movements);
+// console.log(movements);
+
+/////////////////////////////
+// Programmaticaly created array
+const arr = [1, 2, 3, 4, 5, 6, 7];
+
+const x = new Array(7);
+x.fill(1); // может использоваться не только на пустом массиве. действует по принципу метода slice
+console.log(x); // (7) [1, 1, 1, 1, 1, 1, 1]
+
+// Array.from
+const y = Array.from({ length: 7 }, () => 1);
+console.log(y); // (7) [1, 1, 1, 1, 1, 1, 1]
+
+const a = Array.from({ length: 7 }, (_, i) => i + 1);
+console.log(a); // (7) [1, 2, 3, 4, 5, 6, 7];
+
+labelBalance.addEventListener('click', (e) => {
+  const movementsUI = Array.from(
+    document.querySelectorAll('.movements__value')
+  );
+  console.log(movementsUI);
+});
