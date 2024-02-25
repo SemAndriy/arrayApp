@@ -63,9 +63,12 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 /////////////////////
 // APP
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = '';
-  movements.forEach((mov, i) => {
+
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach((mov, i) => {
     const movType = mov > 0 ? 'deposit' : 'withdrawal';
     const html = `
       <div class="movements__row">
@@ -204,6 +207,14 @@ btnClose.addEventListener('click', (e) => {
   }
 
   inputCloseUsername.value = inputClosePin.value = '';
+});
+
+let sorted = false;
+
+btnSort.addEventListener('click', (e) => {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
 });
 
 /////////////////////////////////////////////////
@@ -430,7 +441,7 @@ const totalDepositUSD = movements
   .reduce((acc, mov) => acc + mov, 0);
 console.log(totalDepositUSD);
 
-*/
+
 
 const firstNegativ = movements.find((mov) => mov < 0);
 
@@ -446,3 +457,49 @@ const anyDeposit = movements.some((mov) => mov > 0);
 console.log(anyDeposit);
 
 // EVERY: Check for condition
+
+
+
+const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+const arrDeep = [[1, [2, 3]], [4, [5, 6]], 7, 8];
+console.log(arr.flat());
+console.log(arrDeep.flat(1));
+
+// flat
+const balance = accounts
+  .map((acc) => acc.movements)
+  .flat()
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(balance);
+
+// flatMap
+const balance2 = accounts
+  .flatMap((acc) => acc.movements)
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(balance2);
+
+
+*/
+
+// Sorting arrays
+
+// String
+const owners = ['Jonas', 'Zack', 'Adam', 'Martha'];
+console.log(owners.sort());
+
+// Numbers
+console.log(movements);
+
+// return < 0 = A, B (keep order)
+// return > 0 = B, A (switch order)
+// movements.sort((a, b) => {
+//   if (a > b) {
+//     return 1;
+//   } else {
+//     return -1;
+//   }
+// });
+
+movements.sort((a, b) => a - b);
+
+console.log(movements);
